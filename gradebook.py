@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS students (
 
 
 while True:
-    print("Enter your choice: \n1.Add Students\n2.View Students and their grades\n3.Average grades\n4.Students Ranking\n5.Exit")
+    print("Enter your choice: \n1.Add Students\n2.View Students and their grades\n3.Average grades\n4.Students Ranking\n5.Delete Student Record\n6.Exit")
     choice = int(input())
     if choice ==1:
         name = input("Enter your name: \n")
@@ -88,6 +88,22 @@ while True:
         for row in sorted_results:
             print(f"ID: {row[0]}, Name: {row[1]}, Age: {row[2]}, Percentage: {round(row[6], 2)}%")
     elif choice ==5:
+        dlt = input("Enter the ID of student to delete the data:  ")
+        chck=input("Are you sure (y/n): ").lower()
+        if chck=='y':
+            cursor.execute("SELECT * FROM students WHERE id = %s", (dlt,))
+            student = cursor.fetchone()
+            if student:
+                sql = "DELETE FROM students WHERE id = %s"
+                values = (dlt,)
+                cursor.execute(sql, values)
+                conn.commit()
+                print(f"✅ Student with ID {dlt} deleted successfully!")
+            else:
+                print("❌ No student found with that ID.")
+        else:
+            print("Sorry not able to delete !!")
+    elif choice ==6:
         print("Thankyou !!!")
         break
     
