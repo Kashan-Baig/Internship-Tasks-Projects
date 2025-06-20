@@ -28,24 +28,24 @@ while True:
     choice = int(input())
     if choice ==1:
         name = input("Enter your name: \n")
-        age = input("Enter your age: \n")
     
         try:
-            math = int(input("Enter your math grade (0–100): \n"))
-            science = int(input("Enter your science grade (0–100): \n"))
-            eng = int(input("Enter your English grade (0–100): \n"))
+            age = int(input("Enter your age (15-20): \n"))
+            math = int(input("Enter your math grade (0-100): \n"))
+            science = int(input("Enter your science grade (0-100): \n"))
+            eng = int(input("Enter your English grade (0-100): \n"))
 
-            if 0 <= math <= 100 and 0 <= science <= 100 and 0 <= eng <= 100:
+            if 0 <= math <= 100 and 0 <= science <= 100 and 0 <= eng <= 100 and 15 <= age <= 20:
                 sql = "INSERT INTO students (name, age, math, science, eng) VALUES (%s, %s, %s, %s, %s)"
                 values = (name, age, math, science, eng)
                 cursor.execute(sql, values)
                 conn.commit()
                 print("✅ Student added successfully!")
             else:
-                print("❌ Error: Grades must be between 0 and 100.")
+                print("❌ Error: Grades must be between 0 and 100  OR   Age is incorrect.")
 
         except ValueError:
-            print("❌ Error: Please enter valid numbers for grades.")
+            print("❌ Error: Please enter valid numbers for grades or age.")
     elif choice ==2:
         cursor.execute("SELECT * FROM students")
         results = cursor.fetchall()
