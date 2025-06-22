@@ -1,6 +1,7 @@
 import json
 import os
-import re  # Import the regular expression module
+import re
+
 
 def load_contacts():
     if os.path.exists("contacts.json"):
@@ -8,10 +9,6 @@ def load_contacts():
             return json.load(file) 
     return []  
 
-def is_valid_email(email):
-    # Basic email validation regex pattern
-    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    return re.match(pattern, email) is not None
 
 while True:
     print("\n=== 📞 Contact Book ===")
@@ -21,65 +18,59 @@ while True:
     print("4. Exit")
     contacts = load_contacts()
 
-    try:
-        choice = int(input("Enter your choice (1-4): "))
-    except ValueError:
-        print("Please enter a valid number!")
-        continue
+    choice = int(input())
 
     if choice == 1:
         name = input("Enter name of contact: ")
         num = input("Enter contact number (11 Digits): ")
-        email = input("Enter a valid email: ")
-        
-        # Validate both phone number and email
-        if len(num) != 11:
-            print("Number should be of 11 digits!")
-            continue
-            
-        if not is_valid_email(email):
-            print("Invalid email address format!")
-            continue
-            
-        newcontact = {
-            "name": name,
-            "Contact Number": num,
-            "Email Address": email 
-        }
-        contacts.append(newcontact)
-        with open("contacts.json", "w") as file:
-            json.dump(contacts, file, indent=4)
-        print("✅ Contact added successfully!")
-        
+        pattern = r"^\w+[\w\.-]*@\w+[\w\.-]*\.\w{2,3}$"
+        valid_number = len(num) == 11 and num.isdigit()
+         
+        if not valid_number:   
+            print("❌  Number should be of 11 digits !!!")
+        elif valid_number:
+            email = input("Enter a valid email: ")
+            valid_email = re.match(pattern, email)
+            if not valid_email:
+                print("❌  Invalid Email !!!")
+            elif valid_email:
+                newcontact = {
+                    "name" : name,
+                    "Contact Number" : num,
+                    "Email Address":email 
+                }
+                contacts.append(newcontact)
+                file = open("contacts.json","w")
+                json.dump(contacts, file, indent=4)
+                file.close()
+                print("✅ Contact saved successfully!")
+
     elif choice == 2:
-        if not contacts:
-            print("No contacts found.")
-        else:
-            print("\nALL Contacts:")
-            for count, con in enumerate(contacts, 1):
-                print(f"ID: {count}")
-                print(f"Name: {con['name']}")
-                print(f"Contact Number: {con['Contact Number']}")
-                print(f"Email Address: {con['Email Address']}\n")
-                
-    elif choice == 3:
-        search_term = input("Enter contact number or name to search: ")
-        found = False
+        count = 0
+        print("ALL Contacts:")
         for con in contacts:
-            if (search_term.lower() in con["name"].lower() or 
-                search_term == con["Contact Number"]):
-                print("\nContact Found:")
-                print(f"Name: {con['name']}")
-                print(f"Contact Number: {con['Contact Number']}")
-                print(f"Email Address: {con['Email Address']}")
-                found = True
+            count+=1
+            print("ID: ",count,"  Name: ",con["name"])
+            print("Contact Number: ",con["Contact Number"])
+            print("Email Address: ",con['Email Address'],"\n\n")
+    elif choice == 3:
+        sel = input("Enter contact number for searching: ")
+        print("Selected Contact:")
+        for con in contacts:
+            if con["Contact Number"] == sel:
+                print("Name: ",con["name"])
+                print("Contact Number: ",con["Contact Number"])
+                print("Email Address: ",con['Email Address'])
                 break
-        if not found:
-            print("❌ Contact not found.")
+        else:
+            print("❌ Error: Contact not found.")
                
     elif choice == 4:
-        print("Thank you for using the contact book!")
+        print("Thankyou for using contact book")
         break
-        
     else:
-        print("Invalid choice! Please select 1-4.")
+        print("Incorrect choice !!!")
+    
+
+
+
