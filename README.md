@@ -1,45 +1,48 @@
-🔧 Task Overview
-Description
-Create a simple command-line Contact Book application that allows users to add, view, and search for contacts. The purpose is to help interns get comfortable with Python syntax, data structures, and file I/O operations.
+# 📚 Python Utilities – Contact Book & Grade Book
 
-Objective
-Build foundational skills in Python programming, including control flow, functions, user input handling, and working with files (JSON).
+A collection of beginner-friendly **Python CLI applications** to manage everyday data — one for storing **contacts** and the other for managing **student grades**. Simple, useful, and perfect for learning **file handling**, **data validation**, and **MySQL integration**.
 
-Estimated Time: 8–10 Hours
-Researching CLI-based apps and contact management: 1 hour
-Designing the program structure and flow: 1 hour
-Developing the CLI interface and contact operations: 3 hours
-Implementing file saving/loading with JSON: 2 hours
-Testing input handling and edge cases: 1.5 hours
-Writing basic documentation and demo script: 1.5 hours
+---
 
-Deliverables
-Contact Book Python script (contact_book.py)
-JSON file for saved contacts (contacts.json)
-Sample test session recording or screenshots
-Basic user guide (Markdown or Word format)
-Code comments and structure explanation
+## 📒 Contact Book
 
-Mock Data
-Users: 1 (single-user app)
-Sample Contacts:
-Name: Ali Khan, Phone: 03001234567, Email: ali@example.com
-Name: Sara Malik, Phone: 03111234567, Email: sara@example.com
+Manage contacts with name, phone number, and email — all saved in a `contacts.json` file.
 
-Requirements
-Language: Python 3.x
+### 🔹 Features
+- ➕ Add new contacts with validation
+- 🔍 Search contacts by phone number
+- 📄 View all saved contacts
+- 💾 Data stored in JSON (readable + editable)
+- ✅ Validates:
+  - Phone number must be **11 digits**
+  - Email must follow standard format
 
-Tools: Standard Python libraries only (json, os, etc.)
-Interface: Command Line Interface (CLI)
+### 📂 Tech Used
+- Python `json` and `re` libraries (no external packages)
 
-Features:
-Add new contact (name, phone, email)
-View all contacts
-Search contact by name
-Exit program
-Save/load contacts to/from a JSON file
+---
 
-💡 Bonus (Optional)
-Add delete/update contact feature
-Use SQLite instead of JSON
-Add validation (e.g., valid email format)
+## 📝 Grade Book
+
+A command-line grade manager connected to a **MySQL** database.
+
+### 🔹 Features
+- ➕ Add student grades
+- 🖊️ Update grades by ID
+- 🗑️ Delete student records
+- 📊 View all records
+- 📈 Calculate average, highest marks, etc.
+
+### 📂 Tech Used
+- Python with `mysql-connector-python`
+- MySQL database (custom schema)
+
+---
+
+## 🚀 Getting Started
+
+1. Clone the repo or download the files.
+2. Run the script from terminal:
+   ```bash
+   python contact_book.py      # For Contact Book
+   python grade_book.py        # For Grade Book
